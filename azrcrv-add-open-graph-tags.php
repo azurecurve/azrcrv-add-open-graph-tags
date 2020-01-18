@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Add Open Graph Tags
  * Description: Add Open Graph Tags to attach rich photos to social media posts, helping to drive traffic to your website.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/add-open-graph-tags
@@ -299,25 +299,25 @@ function azrcrv_aogt_insert_opengraph_tags() {
 	if (!is_singular()){
 		$imagetouse = $options['fallback_image'];
 		$image_count = 0;
-	}elseif (azrcrv_aogt_is_plugin_active('azrcrv-floating-featured-image/azrcrv-floating-featured-image.php') AND $options['use_ffi'] == 1){
+	}elseif ($options['use_thumbnail'] == 1 AND has_post_thumbnail()){
+		$image_properties = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ) , 'medium_large' );
+		$imagetouse = $image_properties[0];
+	}elseif (azrcrv_atc_is_plugin_active('azrcrv-floating-featured-image/azrcrv-floating-featured-image.php') AND $options['use_ffi'] == 1){
 		$image_count = 1;
-	}elseif ($options['use_ffi'] == 0 AND strpos($post->post_content, 'featured-image') == true){
+	}elseif (azrcrv_atc_is_plugin_active('azrcrv-floating-featured-image/azrcrv-floating-featured-image.php') AND $options['use_ffi'] == 0 AND strpos($post->post_content, 'featured-image') == true){
 		$image_count = 2;
 	}elseif ($options['use_ffi'] == 0 AND strpos($post->post_content, 'featured-image') == false){
 		$image_count = 1;
 	}else{
-		$imagetouse = $options['fallback_image'];
-		$image_count = 0;
-		
+		$image_count = 1;
 	}
-	if (strlen($image) == 0){
+	if ($image_count == 0 AND STRLEN($imagetouse) == 0){
 		$imagetouse = $options['fallback_image'];
-		$image_count = 0;
 	}
 	
 	if ($image_count > 0){
 		$counter = 0;
-		if ( preg_match_all( '`<img [^>]+>`',  do_shortcode($post->post_content), $matches ) ) {
+		if ( preg_match_all( '/<img(.*?)src=("|\'|)(.*?)("|\'| )(.*?)>/s',  do_shortcode($post->post_content), $matches ) ) {
 			$_matches = reset( $matches );
 			foreach ( $_matches as $image ) {
 				$counter += 1;

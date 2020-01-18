@@ -30,6 +30,8 @@ To install the Add Open Graph Tags plugin:
 
 == Changelog ==
 Changes and feature additions for the Add Open Graph Tags plugin:
+= 1.0.1 =
+* Fix bug with selection of image.
 = 1.0.0 =
 * First version.
 
