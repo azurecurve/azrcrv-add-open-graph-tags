@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Add Open Graph Tags
  * Description: Add Open Graph Tags to attach rich photos to social media posts, helping to drive traffic to your website.
- * Version: 1.0.1
+ * Version: 1.1.0
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/add-open-graph-tags
@@ -24,6 +24,10 @@ if (!defined('ABSPATH')){
 
 // include plugin menu
 require_once(dirname(__FILE__).'/pluginmenu/menu.php');
+register_activation_hook(__FILE__, 'azrcrv_create_plugin_menu_aogt');
+
+// include update client
+require_once(dirname(__FILE__).'/libraries/updateclient/UpdateClient.class.php');
 
 /**
  * Setup registration activation hook, actions, filters and shortcodes.
@@ -40,12 +44,24 @@ add_action('admin_post_azrcrv_aogt_save_options', 'azrcrv_aogt_save_options');
 add_action('admin_enqueue_scripts', 'azrcrv_aogt_load_jquery');
 add_action('admin_enqueue_scripts', 'azrcrv_aogt_media_uploader');
 add_action( 'wp_head', 'azrcrv_aogt_insert_opengraph_tags', 0 );
+add_action('plugins_loaded', 'azrcrv_aogt_load_languages');
 
 // add filters
 add_filter('plugin_action_links', 'azrcrv_aogt_add_plugin_action_link', 10, 2);
 
 /**
- * Load JQuery.
+ * Load language files.
+ *
+ * @since 1.0.0
+ *
+ */
+function azrcrv_aogt_load_languages() {
+    $plugin_rel_path = basename(dirname(__FILE__)).'/languages';
+    load_plugin_textdomain('azrcrv-aogt', false, $plugin_rel_path);
+}
+
+/**
+ * Media Uploader.
  *
  * @since 1.0.0
  *
@@ -192,7 +208,7 @@ function azrcrv_aogt_display_options(){
 	?>
 	<div id="azrcrv-aogt-general" class="wrap">
 		<fieldset>
-			<h2><?php echo esc_html(get_admin_page_title()); ?></h2>
+			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
 			<?php if(isset($_GET['settings-updated'])){ ?>
 				<div class="notice notice-success is-dismissible">
 					<p><strong><?php esc_html_e('Settings have been saved.', 'add-open-graph-tags'); ?></strong></p>
