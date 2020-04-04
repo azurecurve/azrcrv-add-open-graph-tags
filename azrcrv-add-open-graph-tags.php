@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Add Open Graph Tags
  * Description: Add Open Graph Tags to attach rich photos to social media posts, helping to drive traffic to your website.
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/add-open-graph-tags
@@ -97,10 +97,10 @@ function azrcrv_aogt_load_jquery($hook){
 function azrcrv_aogt_set_default_options($networkwide){
 	
 	$option_name = 'azrcrv-aogt';
-	$old_option_name = 'azc_azrcrv_aogt_options';
 	
 	$new_options = array(
-						'' => '',
+						'use_ffi' => 0,
+						'fallback_image' => '',
 			);
 	
 	// set defaults for multi-site
@@ -114,44 +114,65 @@ function azrcrv_aogt_set_default_options($networkwide){
 
 			foreach ($blog_ids as $blog_id){
 				switch_to_blog($blog_id);
-
-				if (get_option($option_name) === false){
-					if (get_option($old_option_name) === false){
-						add_option($option_name, $new_options);
-					}else{
-						add_option($option_name, get_option($old_option_name));
-					}
-				}
+				
+				azrcrv_aogt_update_options($option_name, $new_options, false);
 			}
 
 			switch_to_blog($original_blog_id);
 		}else{
-			if (get_option($option_name) === false){
-				if (get_option($old_option_name) === false){
-					add_option($option_name, $new_options);
-				}else{
-					add_option($option_name, get_option($old_option_name));
-				}
-			}
+			azrcrv_aogt_update_options( $option_name, $new_options, false);
 		}
 		if (get_site_option($option_name) === false){
-				if (get_option($old_option_name) === false){
-					add_option($option_name, $new_options);
-				}else{
-					add_option($option_name, get_option($old_option_name));
-				}
+			azrcrv_aogt_update_options($option_name, $new_options, true);
 		}
 	}
 	//set defaults for single site
 	else{
+		azrcrv_aogt_update_options($option_name, $new_options, false);
+	}
+}
+
+/**
+ * Update options.
+ *
+ * @since 1.1.3
+ *
+ */
+function azrcrv_aogt_update_options($option_name, $new_options, $is_network_site){
+	if ($is_network_site == true){
+		if (get_site_option($option_name) === false){
+			add_site_option($option_name, $new_options);
+		}else{
+			update_site_option($option_name, azrcrv_aogt_update_default_options($new_options, get_site_option($option_name)));
+		}
+	}else{
 		if (get_option($option_name) === false){
-				if (get_option($old_option_name) === false){
-					add_option($option_name, $new_options);
-				}else{
-					add_option($option_name, get_option($old_option_name));
-				}
+			add_option($option_name, $new_options);
+		}else{
+			update_option($option_name, azrcrv_aogt_update_default_options($new_options, get_option($option_name)));
 		}
 	}
+}
+
+
+/**
+ * Add default options to existing options.
+ *
+ * @since 1.1.3
+ *
+ */
+function azrcrv_aogt_update_default_options( &$default_options, $current_options ) {
+    $default_options = (array) $default_options;
+    $current_options = (array) $current_options;
+    $updated_options = $current_options;
+    foreach ($default_options as $key => &$value) {
+        if (is_array( $value) && isset( $updated_options[$key ])){
+            $updated_options[$key] = azrcrv_aogt_update_default_options($value, $updated_options[$key], true);
+        } else {
+            $updated_options[$key] = $value;
+        }
+    }
+    return $updated_options;
 }
 
 /**
@@ -216,7 +237,7 @@ function azrcrv_aogt_display_options(){
 			<?php } ?>
 			<form method="post" action="admin-post.php">
 				<input type="hidden" name="action" value="azrcrv_aogt_save_options" />
-				<input name="page_options" type="hidden" value="min_length,max_length,mod_length,use_network" />
+				<input name="page_options" type="hidden" value="use_ffi,fallback_image" />
 				
 				<!-- Adding security through hidden referrer field -->
 				<?php wp_nonce_field('azrcrv-aogt', 'azrcrv-aogt-nonce'); ?>
@@ -312,12 +333,13 @@ function azrcrv_aogt_insert_opengraph_tags() {
 	$options = get_option('azrcrv-aogt');
 	
 	$image_count = 0;
+	$imagetouse = '';
 	if (!is_singular()){
 		$imagetouse = $options['fallback_image'];
 		$image_count = 0;
-	}elseif ($options['use_thumbnail'] == 1 AND has_post_thumbnail()){
+	/*}elseif ($options['use_thumbnail'] == 1 AND has_post_thumbnail()){
 		$image_properties = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ) , 'medium_large' );
-		$imagetouse = $image_properties[0];
+		$imagetouse = $image_properties[0];*/
 	}elseif (azrcrv_atc_is_plugin_active('azrcrv-floating-featured-image/azrcrv-floating-featured-image.php') AND $options['use_ffi'] == 1){
 		$image_count = 1;
 	}elseif (azrcrv_atc_is_plugin_active('azrcrv-floating-featured-image/azrcrv-floating-featured-image.php') AND $options['use_ffi'] == 0 AND strpos($post->post_content, 'featured-image') == true){
@@ -326,9 +348,6 @@ function azrcrv_aogt_insert_opengraph_tags() {
 		$image_count = 1;
 	}else{
 		$image_count = 1;
-	}
-	if ($image_count == 0 AND STRLEN($imagetouse) == 0){
-		$imagetouse = $options['fallback_image'];
 	}
 	
 	if ($image_count > 0){
@@ -345,6 +364,10 @@ function azrcrv_aogt_insert_opengraph_tags() {
 				}
 			}
 		}
+	}
+	
+	if (STRLEN($imagetouse) == 0){
+		$imagetouse = $options['fallback_image'];
 	}
 	
 	// If on a post or page, reset defaults.

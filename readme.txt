@@ -1,12 +1,12 @@
 === Add Open Graph Tags ===
 
 Description:	Add Open Graph Tags to attach rich photos to social media posts to Facebook or LinkedIn, helping to drive traffic to your website.
-Version:		1.1.2
+Version:		1.1.3
 Tags:			Facebook, LinkedIn, Social Graph, Open Graph
 Author:			azurecurve
 Author URI:		https://development.azurecurve.co.uk/
 Plugin URI:		https://development.azurecurve.co.uk/classicpress-plugins/add-open-graph-tags/
-Download link:	https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/download/v1.1.2/azrcrv-add-open-graph-tags.zip
+Download link:	https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/download/v1.1.3/azrcrv-add-open-graph-tags.zip
 Donate link:	https://development.azurecurve.co.uk/support-development/
 Requires PHP:	5.6
 Requires:		1.0.0
@@ -54,12 +54,17 @@ This plugin is developed for ClassicPress, but will likely work on WordPress.
 
 # Changelog
 
-### [Version 1.1.2](https://github.com/azurecurve/azrcrv-display-after-post-content/releases/tag/v1.1.2)
+### [Version 1.1.3](https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/tag/v1.1.3)
+ * Fix bug which prevented fall back image.
+ * Rewrite default option creation function to resolve several bugs.
+ * Upgrade azurecurve plugin to store available plugins in options.
+
+### [Version 1.1.2](https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/tag/v1.1.2)
  * Update Update Manager class to v2.0.0.
  * Update action link.
  * Update azurecurve menu icon with compressed image.
 
-### [Version 1.1.1](https://github.com/azurecurve/azrcrv-display-after-post-content/releases/tag/v1.1.1)
+### [Version 1.1.1](https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/tag/v1.1.1)
  * Fix bug with incorrect language load text domain.
 
 ### [Version 1.1.0](https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/tag/v1.1.0)
