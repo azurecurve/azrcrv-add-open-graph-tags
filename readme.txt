@@ -1,7 +1,7 @@
 === Add Open Graph Tags ===
 
 Description:	Add Open Graph Tags to attach rich photos to social media posts to Facebook or LinkedIn, helping to drive traffic to your website.
-Version:		1.1.4
+Version:		1.1.5
 Tags:			Facebook, LinkedIn, Social Graph, Open Graph
 Author:			azurecurve
 Author URI:		https://development.azurecurve.co.uk/
@@ -53,6 +53,9 @@ This plugin is developed for ClassicPress, but will likely work on WordPress.
 == Changelog ==
 
 # Changelog
+
+### [Version 1.1.5](https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/tag/v1.1.5)
+ * Check size of image greater than 100px and search for next; if none found use fallback image.
 
 ### [Version 1.1.4](https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/tag/v1.1.4)
  * Fix bug with setting of default options.

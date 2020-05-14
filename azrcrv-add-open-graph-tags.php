@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Add Open Graph Tags
  * Description: Add Open Graph Tags to attach rich photos to social media posts, helping to drive traffic to your website.
- * Version: 1.1.4
+ * Version: 1.1.5
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/add-open-graph-tags
@@ -366,8 +366,11 @@ function azrcrv_aogt_insert_opengraph_tags() {
 				$counter += 1;
 				if ($counter == $image_count){
 					if ( preg_match( '`src=(["\'])(.*?)\1`', $image, $_match ) ) {
-						$imagetouse = $_match[2];
-						break;
+						list($width, $height) = getimagesize($imagetouse); 
+						if ($width > 100 || $height > 100){
+							$imagetouse = $_match[2];
+							break;
+						}
 					}
 				}
 			}
@@ -375,6 +378,11 @@ function azrcrv_aogt_insert_opengraph_tags() {
 	}
 	
 	if (STRLEN($imagetouse) == 0){
+		$imagetouse = $options['fallback_image'];
+	}
+	
+	list($width, $height) = getimagesize($imagetouse); 
+	if ($width < 100 || $height < 100){
 		$imagetouse = $options['fallback_image'];
 	}
 	
