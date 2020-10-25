@@ -3,10 +3,10 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Add Open Graph Tags
  * Description: Add Open Graph Tags to attach rich photos to social media posts, helping to drive traffic to your website.
- * Version: 1.1.5
+ * Version: 1.2.0
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
- * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/add-open-graph-tags
+ * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/add-open-graph-tags/
  * Text Domain: add-open-graph-tags
  * Domain Path: /languages
  * ------------------------------------------------------------------------------
@@ -47,6 +47,8 @@ add_action('plugins_loaded', 'azrcrv_aogt_load_languages');
 
 // add filters
 add_filter('plugin_action_links', 'azrcrv_aogt_add_plugin_action_link', 10, 2);
+add_filter('codepotent_update_manager_image_path', 'azrcrv_aogt_custom_image_path');
+add_filter('codepotent_update_manager_image_url', 'azrcrv_aogt_custom_image_url');
 
 /**
  * Load language files.
@@ -88,6 +90,32 @@ function azrcrv_aogt_load_jquery($hook){
 }
 
 /**
+ * Custom plugin image path.
+ *
+ * @since 1.2.0
+ *
+ */
+function azrcrv_aogt_custom_image_path($path){
+    if (strpos($path, 'azrcrv-add-open-graph-tags') !== false){
+        $path = plugin_dir_path(__FILE__).'assets/pluginimages';
+    }
+    return $path;
+}
+
+/**
+ * Custom plugin image url.
+ *
+ * @since 1.2.0
+ *
+ */
+function azrcrv_aogt_custom_image_url($url){
+    if (strpos($url, 'azrcrv-add-open-graph-tags') !== false){
+        $url = plugin_dir_url(__FILE__).'assets/pluginimages';
+    }
+    return $url;
+}
+
+/**
  * Set default options for plugin.
  *
  * @since 1.0.0
@@ -100,7 +128,11 @@ function azrcrv_aogt_set_default_options($networkwide){
 	$new_options = array(
 						'use_ffi' => 0,
 						'fallback_image' => '',
-						'updated' => strtotime('2020-04-04'),
+						'dimensions' => array(
+													'width' => 100,
+													'height' => 100,
+												),
+						'updated' => strtotime('2020-10-25'),
 			);
 	
 	// set defaults for multi-site
@@ -251,10 +283,15 @@ function azrcrv_aogt_display_options(){
 				<?php wp_nonce_field('azrcrv-aogt', 'azrcrv-aogt-nonce'); ?>
 				<table class="form-table">
 				
-				<tr><th scope="row"><?php esc_html_e('Use floating featured image?', 'floating-featured-image'); ?></th><td>
+				<tr><th scope="row"><?php esc_html_e('Use floating featured image?', 'add-open-graph-tags'); ?></th><td>
 					<fieldset><legend class="screen-reader-text"><span>Use floating featured image</span></legend>
-					<label for="use_ffi"><input name="use_ffi" type="checkbox" id="use_ffi" value="1" <?php checked( '1', $options['use_ffi'] ); ?> /><?php esc_html_e('Use floating featured image in Twitter card?', 'floating-featured-image'); ?></label>
+					<label for="use_ffi"><input name="use_ffi" type="checkbox" id="use_ffi" value="1" <?php checked( '1', $options['use_ffi'] ); ?> /><?php esc_html_e('Use floating featured image in Twitter card?', 'add-open-graph-tags'); ?></label>
 					</fieldset>
+				</td></tr>
+				
+				<tr><th scope="row"><label for="dimensions"><?php esc_html_e('Minimum Dimensions', 'add-open-graph-tags'); ?></label></th><td>
+					<input type="number" name="dimensions-width" value="<?php echo esc_html(stripslashes($options['dimensions']['width'])); ?>" class="small-text" />&nbsp;x&nbsp;<input type="number" name="dimensions-height" value="<?php echo esc_html(stripslashes($options['dimensions']['height'])); ?>" class="small-text" />
+					<p class="description"><?php esc_html_e('Specify minimum dimensions (width and height).', 'add-open-graph-tags'); ?></p>
 				</td></tr>
 				
 				<tr><th scope="row"><label for="fallback_image"><?php esc_html_e('Fallback Image', 'add-open-graph-tags'); ?></label></th><td>
@@ -297,6 +334,15 @@ function azrcrv_aogt_save_options(){
 			$options[$option_name] = 1;
 		}else{
 			$options[$option_name] = 0;
+		}
+		
+		$option_name = 'dimensions-width';
+		if (isset($_POST[$option_name])){
+			$options['dimensions']['width'] = sanitize_text_field($_POST[$option_name]);
+		}
+		$option_name = 'dimensions-height';
+		if (isset($_POST[$option_name])){
+			$options['dimensions']['height'] = sanitize_text_field($_POST[$option_name]);
 		}
 		
 		$option_name = 'fallback_image';
@@ -367,7 +413,7 @@ function azrcrv_aogt_insert_opengraph_tags() {
 				if ($counter == $image_count){
 					if ( preg_match( '`src=(["\'])(.*?)\1`', $image, $_match ) ) {
 						list($width, $height) = getimagesize($imagetouse); 
-						if ($width > 100 || $height > 100){
+						if ($width >= $options['dimensions']['width'] || $height >= $options['dimensions']['height']){
 							$imagetouse = $_match[2];
 							break;
 						}
