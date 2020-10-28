@@ -54,11 +54,11 @@ This plugin is developed for ClassicPress, but will likely work on WordPress.
 
 # Changelog
 
-### [Version 1.3.0](https://github.com/azurecurve/azrcrv-add-twitter-cards/releases/tag/v1.3.0)
+### [Version 1.3.0](https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/tag/v1.3.0)
  * Fix plugin action link to use admin_url() function.
  * Rewrite option handling so defaults not stored in database on plugin initialisation.
 
-### [Version 1.2.1](https://github.com/azurecurve/azrcrv-add-twitter-cards/releases/tag/v1.2.1)
+### [Version 1.2.1](https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/tag/v1.2.1)
  * Fix bug with incorrect image variable.
 
 ### [Version 1.2.0](https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/tag/v1.2.0)
