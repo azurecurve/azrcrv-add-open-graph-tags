@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Add Open Graph Tags
  * Description: Add Open Graph Tags to attach rich photos to social media posts, helping to drive traffic to your website.
- * Version: 1.2.1
+ * Version: 1.3.0
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/add-open-graph-tags/
@@ -35,7 +35,6 @@ require_once(dirname(__FILE__).'/libraries/updateclient/UpdateClient.class.php')
  * @since 1.0.0
  *
  */
-add_action('admin_init', 'azrcrv_aogt_set_default_options');
 
 // add actions
 add_action('admin_menu', 'azrcrv_aogt_create_admin_menu');
@@ -116,104 +115,33 @@ function azrcrv_aogt_custom_image_url($url){
 }
 
 /**
- * Set default options for plugin.
+ * Get options including defaults.
  *
- * @since 1.0.0
+ * @since 1.3.0
  *
  */
-function azrcrv_aogt_set_default_options($networkwide){
+function azrcrv_aogt_get_option($option_name){
 	
-	$option_name = 'azrcrv-aogt';
-	
-	$new_options = array(
+	$upload_dir = wp_upload_dir();
+
+	;
+ 
+	$defaults = array(
 						'use_ffi' => 0,
 						'fallback_image' => '',
 						'dimensions' => array(
 													'width' => 100,
 													'height' => 100,
 												),
-						'updated' => strtotime('2020-10-25'),
-			);
-	
-	// set defaults for multi-site
-	if (function_exists('is_multisite') && is_multisite()){
-		// check if it is a network activation - if so, run the activation function for each blog id
-		if ($networkwide){
-			global $wpdb;
+					);
 
-			$blog_ids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
-			$original_blog_id = get_current_blog_id();
+	$options = get_option($option_name, $defaults);
 
-			foreach ($blog_ids as $blog_id){
-				switch_to_blog($blog_id);
-				
-				azrcrv_aogt_update_options($option_name, $new_options, false);
-			}
+	$options = wp_parse_args($options, $defaults);
 
-			switch_to_blog($original_blog_id);
-		}else{
-			azrcrv_aogt_update_options( $option_name, $new_options, false);
-		}
-		if (get_site_option($option_name) === false){
-			azrcrv_aogt_update_options($option_name, $new_options, true);
-		}
-	}
-	//set defaults for single site
-	else{
-		azrcrv_aogt_update_options($option_name, $new_options, false);
-	}
-}
+	return $options;
 
-/**
- * Update options.
- *
- * @since 1.1.3
- *
- */
-function azrcrv_aogt_update_options($option_name, $new_options, $is_network_site){
-	if ($is_network_site == true){
-		if (get_site_option($option_name) === false){
-			add_site_option($option_name, $new_options);
-		}else{
-			$options = get_site_option($option_name);
-			if (!isset($options['updated']) OR $options['updated'] < $new_options['updated'] ){
-				$options['updated'] = $new_options['updated'];
-				update_site_option($option_name, azrcrv_aogt_update_default_options($options, $new_options));
-			}
-		}
-	}else{
-		if (get_option($option_name) === false){
-			add_option($option_name, $new_options);
-		}else{
-			$options = get_option($option_name);
-			if (!isset($options['updated']) OR $options['updated'] < $new_options['updated'] ){
-				$options['updated'] = $new_options['updated'];
-				update_option($option_name, azrcrv_aogt_update_default_options($options, $new_options));
-			}
-		}
-	}
-}
-
-
-/**
- * Add default options to existing options.
- *
- * @since 1.1.3
- *
- */
-function azrcrv_aogt_update_default_options( &$default_options, $current_options ) {
-    $default_options = (array) $default_options;
-    $current_options = (array) $current_options;
-    $updated_options = $current_options;
-    foreach ($default_options as $key => &$value) {
-        if (is_array( $value) && isset( $updated_options[$key])){
-            $updated_options[$key] = azrcrv_aogt_update_default_options($value, $updated_options[$key]);
-        } else {
-			$updated_options[$key] = $value;
-        }
-    }
-    return $updated_options;
-}
+ }
 
 /**
  * Add pluginnameazrcrv-aogt action link on plugins page.
@@ -229,7 +157,7 @@ function azrcrv_aogt_add_plugin_action_link($links, $file){
 	}
 
 	if ($file == $this_plugin){
-		$settings_link = '<a href="'.get_bloginfo('wpurl').'/wp-admin/admin.php?page=azrcrv-aogt"><img src="'.plugins_url('/pluginmenu/images/Favicon-16x16.png', __FILE__).'" style="padding-top: 2px; margin-right: -5px; height: 16px; width: 16px;" alt="azurecurve" />'.esc_html__('Settings' ,'add-open-graph-tags').'</a>';
+		$settings_link = '<a href="'.admin_url('admin.php?page=azrcrv-aogt').'"><img src="'.plugins_url('/pluginmenu/images/Favicon-16x16.png', __FILE__).'" style="padding-top: 2px; margin-right: -5px; height: 16px; width: 16px;" alt="azurecurve" />'.esc_html__('Settings' ,'add-open-graph-tags').'</a>';
 		array_unshift($links, $settings_link);
 	}
 
@@ -265,7 +193,7 @@ function azrcrv_aogt_display_options(){
     }
 	
 	// Retrieve plugin configuration options from database
-	$options = get_option('azrcrv-aogt');
+	$options = azrcrv_aogt_get_option('azrcrv-aogt');
 	?>
 	<div id="azrcrv-aogt-general" class="wrap">
 		<fieldset>
@@ -384,7 +312,7 @@ function azrcrv_aogt_insert_opengraph_tags() {
 	$title = get_bloginfo( 'name' );
 	$desc  = get_bloginfo( 'description' );
 	
-	$options = get_option('azrcrv-aogt');
+	$options = azrcrv_aogt_get_option('azrcrv-aogt');
 	
 	$image_count = 0;
 	$imagetouse = '';
