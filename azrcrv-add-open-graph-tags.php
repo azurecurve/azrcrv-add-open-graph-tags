@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Add Open Graph Tags
  * Description: Add Open Graph Tags to attach rich photos to social media posts, helping to drive traffic to your website.
- * Version: 1.4.0
+ * Version: 1.4.1
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/add-open-graph-tags/
@@ -215,7 +215,12 @@ function azrcrv_aogt_display_options(){
 	?>
 	<div id="azrcrv-aogt-general" class="wrap">
 		<fieldset>
-			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+			<h1>
+				<?php
+					echo '<a href="https://development.azurecurve.co.uk/classicpress-plugins/"><img src="'.plugins_url('/pluginmenu/images/logo.svg', __FILE__).'" style="padding-right: 6px; height: 20px; width: 20px;" alt="azurecurve" /></a>';
+					esc_html_e(get_admin_page_title());
+				?>
+			</h1>
 			<?php if(isset($_GET['settings-updated'])){ ?>
 				<div class="notice notice-success is-dismissible">
 					<p><strong><?php esc_html_e('Settings have been saved.', 'add-open-graph-tags'); ?></strong></p>
@@ -240,7 +245,7 @@ function azrcrv_aogt_display_options(){
 					<?php if (azrcrv_aogt_is_plugin_active('azrcrv-floating-featured-image/azrcrv-floating-featured-image.php')){ ?>
 						<label for="use_ffi"><input name="use_ffi" type="checkbox" id="use_ffi" value="1" <?php checked( '1', $options['use_ffi'] ); ?> /><?php esc_html_e('Use floating featured image?', 'add-open-graph-tags'); ?></label>
 					<?php }else{ ?>
-						<label for="use_ffi"><?php printf(__('%s from %s is not installed', 'add-open-graph-tags'), '<a href="https://development.azurecurve.co.uk/classicpress-plugins/floating-featured-image/">Floating Featured Image</a>', '<a href="https://development.azurecurve.co.uk/">azurecurve</a>'); ?></label>
+						<label for="use_ffi"><?php printf(esc_html__('%s from %s is not installed', 'add-open-graph-tags'), '<a href="https://development.azurecurve.co.uk/classicpress-plugins/floating-featured-image/">Floating Featured Image</a>', '<a href="https://development.azurecurve.co.uk/">azurecurve</a>'); ?></label>
 					<?php } ?>
 					</fieldset>
 				</td></tr>
