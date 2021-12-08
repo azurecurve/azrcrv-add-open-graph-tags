@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: Add Open Graph Tags
  * Description: Add Open Graph Tags to attach rich photos to social media posts, helping to drive traffic to your website.
- * Version: 1.4.1
+ * Version: 1.4.2
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/add-open-graph-tags/
@@ -371,6 +371,8 @@ function azrcrv_aogt_insert_opengraph_tags() {
 	$title = get_bloginfo( 'name' );
 	$desc  = get_bloginfo( 'description' );
 	
+	$content = $post->post_content;
+	
 	$options = azrcrv_aogt_get_option('azrcrv-aogt');
 	
 	$image_count = 0;
@@ -383,9 +385,9 @@ function azrcrv_aogt_insert_opengraph_tags() {
 		$image_count = 0;
 	}elseif (azrcrv_aogt_is_plugin_active('azrcrv-floating-featured-image/azrcrv-floating-featured-image.php') AND $options['use_ffi'] == 1){
 		$image_count = 1;
-	}elseif (azrcrv_aogt_is_plugin_active('azrcrv-floating-featured-image/azrcrv-floating-featured-image.php') AND $options['use_ffi'] == 0 AND strpos($post->post_content, 'featured-image') == true){
+	}elseif (azrcrv_aogt_is_plugin_active('azrcrv-floating-featured-image/azrcrv-floating-featured-image.php') AND $options['use_ffi'] == 0 AND strpos($content, 'featured-image') == true){
 		$image_count = 2;
-	}elseif ($options['use_ffi'] == 0 AND strpos($post->post_content, 'featured-image') == false){
+	}elseif ($options['use_ffi'] == 0 AND strpos($content, 'featured-image') == false){
 		$image_count = 1;
 	}else{
 		$image_count = 1;
@@ -393,7 +395,7 @@ function azrcrv_aogt_insert_opengraph_tags() {
 	
 	if ($image_count > 0){
 		$counter = 0;
-		if ( preg_match_all( '/<img(.*?)src=("|\'|)(.*?)("|\'| )(.*?)>/s',  do_shortcode($post->post_content), $matches ) ) {
+		if ( preg_match_all( '/<img(.*?)src=("|\'|)(.*?)("|\'| )(.*?)>/s',  do_shortcode($content), $matches ) ) {
 			$_matches = reset( $matches );
 			foreach ( $_matches as $image ) {
 				$counter += 1;
@@ -431,7 +433,7 @@ function azrcrv_aogt_insert_opengraph_tags() {
 		if (!empty( $post->post_excerpt)){
 			$desc = $post->post_excerpt;
 		}else{
-			$desc = trim(strip_tags(do_shortcode($post->post_content)));
+			$desc = trim(strip_tags(do_shortcode($content)));
 			if (strlen($desc) > 200){
 				$desc = substr($desc, 0 , 199).'‎&hellip;';
 			}
