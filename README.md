@@ -1,7 +1,5 @@
-# Add Open Graph Tags
+# [Add Open Graph Tags](https://development.azurecurve.co.uk/classicpress-plugins/add-open-graph-tags/)
 ![Plugin Banner](/assets/pluginimages/banner-1544x500.png)
-
-[Add Open Graph Tags plugin for ClassicPress](https://development.azurecurve.co.uk/classicpress-plugins/add-open-graph-tags/)
 
 # Description
 
