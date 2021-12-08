@@ -35,7 +35,7 @@ This plugin is multisite compatible; each site will need settings to be configur
 
 # Installation Instructions
 
-* Download the plugin from [GitHub](https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/latest/).
+* Download the latest release of the plugin from [GitHub](https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/latest/).
 * Upload the entire zip file using the Plugins upload function in your ClassicPress admin panel.
 * Activate the plugin.
 * Configure relevant settings via the configuration page in the admin control panel (azurecurve menu).
