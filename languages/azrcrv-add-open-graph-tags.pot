@@ -1,0 +1,101 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Add Twitter Cards\n"
+"POT-Creation-Date: 2021-12-27 17:43+0000\n"
+"PO-Revision-Date: 2019-03-24 10:38+0000\n"
+"Last-Translator: \n"
+"Language-Team: translate@azurecurve.co.uk\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: azrcrv-add-open-graph-tags.php:178
+msgid "Settings"
+msgstr ""
+
+#: azrcrv-add-open-graph-tags.php:195
+msgid "Add Open Graph Tags Settings"
+msgstr ""
+
+#: azrcrv-add-open-graph-tags.php:196
+msgid "Add Open Graph Tags"
+msgstr ""
+
+#: azrcrv-add-open-graph-tags.php:210
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: azrcrv-add-open-graph-tags.php:226
+msgid "Settings have been saved."
+msgstr ""
+
+#: azrcrv-add-open-graph-tags.php:237 azrcrv-add-open-graph-tags.php:239
+msgid "Use featured image?"
+msgstr ""
+
+#: azrcrv-add-open-graph-tags.php:243 azrcrv-add-open-graph-tags.php:246
+msgid "Use floating featured image?"
+msgstr ""
+
+#: azrcrv-add-open-graph-tags.php:248
+#, php-format
+msgid "%s from %s is not installed"
+msgstr ""
+
+#: azrcrv-add-open-graph-tags.php:253
+msgid "Minimum Dimensions"
+msgstr ""
+
+#: azrcrv-add-open-graph-tags.php:255
+msgid "Specify minimum dimensions (width and height)."
+msgstr ""
+
+#: azrcrv-add-open-graph-tags.php:258
+msgid "Fallback Image"
+msgstr ""
+
+#: azrcrv-add-open-graph-tags.php:263
+msgid "Upload image"
+msgstr ""
+
+#: azrcrv-add-open-graph-tags.php:264
+msgid "Remove image"
+msgstr ""
+
+#: azrcrv-add-open-graph-tags.php:265
+msgid ""
+"Upload, choose or remove your fallback image; recommended open graph "
+"image is 1200px by 627px."
+msgstr ""
+
+#: azrcrv-add-open-graph-tags.php:277
+#, php-format
+msgid "This plugin integrates with the following plugins from %s:"
+msgstr ""
+
+#: azrcrv-add-open-graph-tags.php:304
+msgid "You do not have permissions to perform this action"
+msgstr ""
+
+#: libraries/updateclient/UpdateClient.class.php:191
+msgid "Compatible up to:"
+msgstr ""
+
+#: libraries/updateclient/UpdateClient.class.php:192
+msgid "Reviews"
+msgstr ""
+
+#: libraries/updateclient/UpdateClient.class.php:193
+msgid "Read all reviews"
+msgstr ""
+
+#: libraries/updateclient/UpdateClient.class.php:383
+msgid "View details"
+msgstr ""
