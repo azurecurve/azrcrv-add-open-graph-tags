@@ -1,29 +1,25 @@
-# [Add Open Graph Tags](https://development.azurecurve.co.uk/classicpress-plugins/add-open-graph-tags/)
-![Plugin Banner](/assets/pluginimages/banner-1544x500.png)
+# [Xxxx](https://development.azurecurve.co.uk/classicpress-plugins/xxxx/)
+![Plugin Banner](/assets/images/banner-1544x500.png)
 
 # Description
 
-Add Open Graph Tags to attach rich photos to social media posts to Facebook or LinkedIn, helping to drive traffic to your website.
-
-Options allow:
-* Excerpt or first 200 characters of post added to card.
-* Featured Image or first post image will be added to card.
-* Integrate with [Floating Featured Images](https:/development.azurecurve.co.uk/classicpress-plugins/floating-featured-image/) for card image.
+.
 
 This plugin is multisite compatible; each site will need settings to be configured in the admin dashboard.
 
 # Installation Instructions
 
-* Download the latest release of the plugin from [GitHub](https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/latest/).
-* Upload the entire zip file using the Plugins upload function in your ClassicPress admin panel.
-* Activate the plugin.
-* Configure relevant settings via the configuration page in the admin control panel (azurecurve menu).
+ * Download the latest release of the plugin from [GitHub](https://github.com/azurecurve/azrcrv-xxxx/releases/latest/).
+ * Upload the entire zip file using the Plugins upload function in your ClassicPress admin panel.
+ * Activate the plugin.
+ * Configure relevant settings via the configuration page in the admin control panel (azurecurve menu).
+ 
+ # About azurecurve
 
-# About azurecurve
-
-**azurecurve** was one of the first plugin developers to start developing for ClassicPress; all plugins are available from [azurecurve Development](https://development.azurecurve.co.uk/) and are integrated with the [Update Manager plugin](https://directory.classicpress.net/plugins/update-manager) for fully integrated, no hassle, updates.
+**azurecurve** was one of the first plugin developers to start developing for Classicpress; all plugins are available from [azurecurve Development](https://development.azurecurve.co.uk/) and are integrated with the [Update Manager plugin](https://directory.classicpress.net/plugins/update-manager) for fully integrated, no hassle, updates.
 
 The other plugins available from **azurecurve** are:
+ * Add Open Graph Tags - [details](https://development.azurecurve.co.uk/classicpress-plugins/add-open-graph-tags/) / [download](https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/latest/)
  * Add Twitter Cards - [details](https://development.azurecurve.co.uk/classicpress-plugins/add-twitter-cards/) / [download](https://github.com/azurecurve/azrcrv-add-twitter-cards/releases/latest/)
  * Avatars - [details](https://development.azurecurve.co.uk/classicpress-plugins/avatars/) / [download](https://github.com/azurecurve/azrcrv-avatars/releases/latest/)
  * BBCode - [details](https://development.azurecurve.co.uk/classicpress-plugins/bbcode/) / [download](https://github.com/azurecurve/azrcrv-bbcode/releases/latest/)
@@ -78,4 +74,3 @@ The other plugins available from **azurecurve** are:
  * URL Shortener - [details](https://development.azurecurve.co.uk/classicpress-plugins/url-shortener/) / [download](https://github.com/azurecurve/azrcrv-url-shortener/releases/latest/)
  * Username Protection - [details](https://development.azurecurve.co.uk/classicpress-plugins/username-protection/) / [download](https://github.com/azurecurve/azrcrv-username-protection/releases/latest/)
  * Widget Announcements - [details](https://development.azurecurve.co.uk/classicpress-plugins/widget-announcements/) / [download](https://github.com/azurecurve/azrcrv-widget-announcements/releases/latest/)
- 
