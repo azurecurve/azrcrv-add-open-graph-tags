@@ -1,15 +1,17 @@
 # [Add Open Graph Tags](https://development.azurecurve.co.uk/classicpress-plugins/add-open-graph-tags/)
-Author:        azurecurve
-Version:       2.0.4
-Requires CP:   1.0
-Requires PHP:  7.4
-
 ![Plugin Banner](/assets/images/banner-1544x500.png)
+
+Author:        azurecurve
+
+Version:       2.0.4
+
+Requires CP:   1.0
+
+Requires PHP:  7.4
 
 # Description
 
 Add Open Graph Tags to attach rich photos to social media posts to Facebook or LinkedIn, helping to drive traffic to your website.
-
 Options allow:
 * Excerpt or first 200 characters of post added to card.
 * Featured Image or first post image will be added to card.
