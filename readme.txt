@@ -36,6 +36,9 @@ This plugin is developed for ClassicPress, but will likely work on WordPress.
 
 # Changelog
 
+### [Version 2.0.3](https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/tag/v2.0.4)
+ * Update plugin header and readme yet again for compatibility with ClassicPress Directory.
+
 ### [Version 2.0.3](https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/tag/v2.0.3)
  * Update plugin header and readme for compatibility with ClassicPress Directory v2.
  * Update Update Manager to version 2.5.0.
