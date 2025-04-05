@@ -1,8 +1,12 @@
 # [Add Open Graph Tags](https://development.azurecurve.co.uk/classicpress-plugins/add-open-graph-tags/)
 Author:        azurecurve
+
 Version:       2.0.4
+
 Requires CP:   1.0
+
 Requires PHP:  7.4
+
 ![Plugin Banner](/assets/images/banner-1544x500.png)
 
 # Description
