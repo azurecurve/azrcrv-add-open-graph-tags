@@ -10,6 +10,13 @@
 namespace azurecurve\AddOpenGraphTags;
 
 /**
+ * Prevent direct access.
+ */
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
+
+/**
  *  Add action.
  */
 add_action( 'admin_init', __NAMESPACE__ . '\\populate_azurecurve_menu' );

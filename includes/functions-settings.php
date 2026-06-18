@@ -9,6 +9,13 @@
 namespace azurecurve\AddOpenGraphTags;
 
 /**
+ * Prevent direct access.
+ */
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
+
+/**
  * Get options including defaults.
  *
  * @since 1.2.0

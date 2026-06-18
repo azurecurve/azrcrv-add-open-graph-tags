@@ -11,6 +11,13 @@
 namespace azurecurve\AddOpenGraphTags;
 
 /**
+ * Prevent direct access.
+ */
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
+
+/**
  * Check if function active (included due to standard function failing due to order of load).
  *
  * @since 1.0.0
@@ -65,10 +72,12 @@ function insert_opengraph_tags() {
 				$counter += 1;
 				if ( $counter == $image_count ) {
 					if ( preg_match( '`src=(["\'])(.*?)\1`', $image, $_match ) ) {
-						list($width, $height) = getimagesize( $_match[2] );
-						if ( $width >= $options['dimensions']['width'] || $height >= $options['dimensions']['height'] ) {
-							$imagetouse = $_match[2];
-							break;
+						if (file_exists($_match[2])) {
+							list($width, $height) = getimagesize( $_match[2] );
+							if ( $width >= $options['dimensions']['width'] || $height >= $options['dimensions']['height'] ) {
+								$imagetouse = $_match[2];
+								break;
+							}
 						}
 					}
 				}
@@ -81,9 +90,11 @@ function insert_opengraph_tags() {
 	}
 
 	if ( strlen( $imagetouse ) > 0 ) {
-		list($width, $height) = getimagesize( $imagetouse );
-		if ( $width < $options['dimensions']['width'] || $height < $options['dimensions']['height'] ) {
-			$imagetouse = $options['fallback_image'];
+		if (file_exists($imagetouse)) {
+			list($width, $height) = getimagesize( $imagetouse );
+			if ( $width < $options['dimensions']['width'] || $height < $options['dimensions']['height'] ) {
+				$imagetouse = $options['fallback_image'];
+			}
 		}
 	}
 

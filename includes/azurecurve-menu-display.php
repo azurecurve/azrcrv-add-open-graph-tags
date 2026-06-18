@@ -2,6 +2,14 @@
 /**
  *  Menu Version 3.0
  */
+
+/**
+ * Prevent direct access.
+ */
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
+
 // add actions.
 add_action( 'admin_menu', 'azrcrv_add_azurecurve_menu' );
 

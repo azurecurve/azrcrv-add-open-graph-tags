@@ -11,6 +11,13 @@
 namespace azurecurve\AddOpenGraphTags;
 
 /**
+ * Prevent direct access.
+ */
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
+
+/**
  * Setup registration activation hook, actions, filters and shortcodes.
  *
  * @since 1.0.0
