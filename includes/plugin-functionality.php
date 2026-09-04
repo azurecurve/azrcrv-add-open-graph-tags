@@ -36,6 +36,9 @@ function insert_opengraph_tags() {
 
 	// Bring $post object into scope.
 	global $post;
+	if ( ! isset( $post->post_content ) ) {
+		return;
+	}
 
 	// Set defaults for shares.
 	$url   = get_bloginfo( 'url' );

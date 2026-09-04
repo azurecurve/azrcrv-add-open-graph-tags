@@ -36,7 +36,7 @@ function enqueue_admin_styles() {
 	global $pagenow;
 
 	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-	if ( isset( $_GET['page'] ) && ( $_GET['page'] == PLUGIN_HYPHEN || $_GET['page'] == 'azrcrv-plugin-menu' ) || $pagenow == 'profile.php' || $pagenow == 'edit-user.php' ) {
+	if ( isset( $_GET['page'] ) && ( $_GET['page'] == PLUGIN_HYPHEN || $_GET['page'] == 'azrcrv-plugin-menu' ) ) {
 		wp_enqueue_style( 'azrcrv-admin-standard-styles' );
 		wp_enqueue_style( 'azrcrv-pluginmenu-admin-styles' );
 	}

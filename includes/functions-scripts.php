@@ -36,7 +36,7 @@ function enqueue_admin_scripts() {
 	global $pagenow;
 
 	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-	if ( isset( $_GET['page'] ) && ( $_GET['page'] == PLUGIN_HYPHEN || $_GET['page'] == 'azrcrv-plugin-menu' ) || $pagenow == 'profile.php' || $pagenow == 'edit-user.php' ) {
+	if ( isset( $_GET['page'] ) && ( $_GET['page'] == PLUGIN_HYPHEN || $_GET['page'] == 'azrcrv-plugin-menu' ) ) {
 		wp_enqueue_script( PLUGIN_HYPHEN . '-admin-js' );
 		wp_enqueue_script( 'azrcrv-admin-standard-js' );
 	}
@@ -48,13 +48,17 @@ function enqueue_admin_scripts() {
  * @since 1.0.0
  */
 function media_uploader() {
-	global $post_type;
 
-	if ( function_exists( 'wp_enqueue_media' ) ) {
-		wp_enqueue_media();
-	} else {
-		wp_enqueue_script( 'media-upload' );
-		wp_enqueue_script( 'thickbox' );
-		wp_enqueue_style( 'thickbox' );
+	if ( isset( $_GET['page'] ) && $_GET['page'] == PLUGIN_HYPHEN ) {
+		if ( function_exists( 'wp_enqueue_media' ) ) {
+			wp_enqueue_media();
+			wp_dequeue_script( 'jquery-ui-core' );
+			wp_dequeue_script( 'jquery-ui-mouse' );
+			wp_dequeue_script( 'jquery-ui-sortable' );
+		} else {
+			wp_enqueue_script( 'media-upload' );
+			wp_enqueue_script( 'thickbox' );
+			wp_enqueue_style( 'thickbox' );
+		}
 	}
 }

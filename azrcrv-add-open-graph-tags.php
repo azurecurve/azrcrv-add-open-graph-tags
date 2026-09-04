@@ -1,9 +1,9 @@
 <?php
 /**
- * ------------------------------------------------------------------------------
+ * ----------------------------------------------------------------------------------------------------
  * Plugin Name:		Add Open Graph Tags
- * Description:		Add Open Graph Tags to attach rich photos to social media posts, helping to drive traffic to your website.
- * Version:			2.0.5
+ * Description:		Attach rich photos to social media posts, helping to drive traffic to your website.
+ * Version:			2.0.6
  * Requires CP:		1.0
  * Requires PHP: 	8.2
  * Author:			azurecurve
@@ -14,7 +14,7 @@
  * Domain Path:		/assets/languages
  * License:			GPLv2 or later
  * License URI:		http://www.gnu.org/licenses/gpl-2.0.html
- * ------------------------------------------------------------------------------
+ * ----------------------------------------------------------------------------------------------------
  * This is free software released under the terms of the General Public License,
  * version 2, or later. It is distributed WITHOUT ANY WARRANTY; without even the
  * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. Full
